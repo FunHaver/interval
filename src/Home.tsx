@@ -1,20 +1,44 @@
 import React from 'react';
-import { Button, PaperProvider } from 'react-native-paper';
+import {Modal, Portal, Button, TextInput, PaperProvider, useTheme, Text } from 'react-native-paper';
 import {
+  StyleSheet,
   View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 function Home(): React.JSX.Element {
   const navigation = useNavigation();
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const theme = useTheme()
+  const styles = StyleSheet.create({
+    parentView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: theme.colors.background
+    },
+    newMomentButton: {
+      backgroundColor: theme.colors.primary,
+      color: theme.colors.onPrimary
+    },
+    momentModal: {
+      flex:1,
+      backgroundColor: theme.colors.background
+    }
+  })
   return (
-      <View>
-        <Button icon="camera">
-          Hi
-        </Button>
-        {/* navigation.navigate arg type error (still works) https://reactnavigation.org/docs/navigating
-        //@ts-ignore */}
-        <Button onPress={()=> navigation.navigate('Options')}> 
-          Go to Options
+    <View style={styles.parentView}>
+    <Portal>
+      <Modal style={styles.momentModal} visible={visible} onDismiss={hideModal}>
+        <Text>Write what you want here</Text>
+        <TextInput multiline/>
+        <Button>Save</Button>
+      </Modal>
+    </Portal>
+      
+        <Button style={styles.newMomentButton} mode="contained" onPress={()=>showModal()}>
+          Hello
         </Button>
       </View>
   );

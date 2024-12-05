@@ -4,23 +4,25 @@
 import * as React from 'react';
 import {AppRegistry} from 'react-native';
 import Home from './src/Home';
-import Options from './src/Options';
 import {name as appName} from './app.json';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 export default function Main(){
     return (
-        <PaperProvider>
+        <PaperProvider theme={DefaultTheme}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Home">
                         <Stack.Screen
                             name="Home"
                             component={Home}
-                            options={{title: 'Welcome'}}/>
-                        <Stack.Screen name="Options" component={Options}/>
+                            options={{
+                                headerStyle: {
+                                    backgroundColor: "#ffffff"
+                                }
+                            }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

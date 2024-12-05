@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button, PaperProvider } from 'react-native-paper';
+import { Text, Button } from 'react-native-paper';
 function Options(): React.JSX.Element {
     const navigation = useNavigation();
     return(

@@ -1,0 +1,2 @@
+Implement local DB and browsing saved notes UI. 
+Thinking of using https://watermelondb.dev for persistence.
