@@ -1,2 +1,2 @@
-Implement local DB and browsing saved notes UI. 
-Thinking of using https://github.com/expo/expo/tree/main/packages/expo-sqlite for persistence.
+Local DB 
+Browsing saved notes UI
