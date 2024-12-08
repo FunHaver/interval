@@ -5,6 +5,13 @@ import {
   View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import databaseConnection from './databaseConnection';
+let mysch:string | undefined;
+
+databaseConnection.execute("SELECT schema from interval").then(result=> {
+  mysch = result.rows[0]["schema"]?.toString();
+})
+
 function Home(): React.JSX.Element {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
@@ -27,6 +34,8 @@ function Home(): React.JSX.Element {
       backgroundColor: theme.colors.background
     }
   })
+
+
   return (
     <View style={styles.parentView}>
     <Portal>
@@ -40,6 +49,10 @@ function Home(): React.JSX.Element {
         <Button style={styles.newMomentButton} mode="contained" onPress={()=>showModal()}>
           Hello
         </Button>
+        <Text>
+          {mysch}
+        </Text>
+
       </View>
   );
 }
