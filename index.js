@@ -9,6 +9,7 @@ import {name as appName} from './app.json';
 import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MomentList from './src/MomentList';
 
 initializeDatabase().catch(e => {
     console.error(e);
@@ -29,6 +30,11 @@ export default function Main(){
                                     backgroundColor: "#ffffff"
                                 }
                             }}/>
+                        <Stack.Screen
+                            name="Moments"
+                            component={MomentList}
+                            />
+
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

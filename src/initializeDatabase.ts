@@ -6,10 +6,10 @@ export default async function initializeDatabase():Promise<void> {
     //if no schema, create new db
     if(tables.length === 0){
         //TODO store db metadata (e.g. schema version) in some sort of manifest
-        await databaseConnection.execute("CREATE TABLE interval (id INTEGER PRIMARY KEY, schema INTEGER NOT NULL)");
+        await databaseConnection.execute("CREATE TABLE interval (ROWID INTEGER PRIMARY KEY, schema INTEGER NOT NULL)");
         await databaseConnection.execute("INSERT INTO interval (schema) VALUES(1)");
         //In this house we use ISO8601 strings
-        await databaseConnection.execute("CREATE TABLE moment (rnote TEXT NOT NULL, date TEXT NOT NULL, score INTEGER)") 
+        await databaseConnection.execute("CREATE TABLE moment (ROWID INTEGER PRIMARY KEY, note TEXT NOT NULL, date TEXT NOT NULL, score INTEGER)") 
     }
     //else if db_schema < expected_schema, migrate
     //else if db_schema > expected_schema, throw error
