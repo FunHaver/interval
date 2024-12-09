@@ -36,7 +36,6 @@ function Home(): React.JSX.Element {
 
   async function saveNote(text:string){
     await queryService.saveNewMoment(text);
-    console.log(`Saved ${text}`)
   }
   return (
     <View style={styles.parentView}>

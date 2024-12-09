@@ -17,25 +17,30 @@ initializeDatabase().catch(e => {
 
 const Stack = createNativeStackNavigator();
 
+function RootStack(){
+    return(
+        <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#ffffff"
+                    }
+                }}/>
+            <Stack.Screen
+                name="Moments"
+                component={MomentList}
+                />
+        </Stack.Navigator>
+    )
+}
+
 export default function Main(){
     return (
         <PaperProvider theme={DefaultTheme}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home">
-                        <Stack.Screen
-                            name="Home"
-                            component={Home}
-                            options={{
-                                headerStyle: {
-                                    backgroundColor: "#ffffff"
-                                }
-                            }}/>
-                        <Stack.Screen
-                            name="Moments"
-                            component={MomentList}
-                            />
-
-                </Stack.Navigator>
+                <RootStack />
             </NavigationContainer>
         </PaperProvider>
     )
