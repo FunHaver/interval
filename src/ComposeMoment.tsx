@@ -1,18 +1,35 @@
 import * as React from 'react';
 import {Text, TextInput, Button} from 'react-native-paper';
-import queryService from './queryService';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import DateTimePicker from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
+import { useNavigation } from '@react-navigation/native';
 
 function ComposeMoment():React.JSX.Element{
     const [text, setText] = React.useState("");
-    async function saveNote(text:string){
-        await queryService.saveNewMoment(text);
-      }
+    const [date, setDate] = React.useState(dayjs().toDate());
+    const [showPicker, setPickerVisibility] = React.useState(false);
+    const navigation = useNavigation();
+
+    const styles = StyleSheet.create({
+        textField: {
+            minHeight: '80%',
+            maxHeight: '80%'
+        }
+    })
     return(
         <View>
-            <Text>Write what you want here</Text>
-            <TextInput onChangeText={setText} value={text} multiline/>
-            <Button onPress={()=>saveNote(text)}>Save</Button>
+            <Button onPress={()=>setPickerVisibility(true)}>
+                <Text>{date.toDateString()}</Text>
+            </Button>
+            <View style={{display:showPicker ? 'flex':'none'}}>
+                <DateTimePicker mode={"single"} date={date} onChange={(params:any) => setDate(params.date.toDate())}/>
+                <Button onPress={()=>{setPickerVisibility(false)}}>Confirm</Button>
+            </View>
+            <TextInput style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>
+            {
+            /*@ts-ignore*/}
+            <Button onPress={()=>navigation.navigate("Save")}>Save</Button>
         </View>
     )
 }

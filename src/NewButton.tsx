@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 function NewButton():React.JSX.Element {
@@ -13,14 +13,20 @@ function NewButton():React.JSX.Element {
           height: 100,
           width: 100,
           borderRadius: 100
+        },
+        container: {
+            display: "flex",
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: "100%"
         }
       })
     return(
-        <>
+        <View style={styles.container}>
         {
             /*@ts-ignore*/}
-            <IconButton icon="pencil" style={styles.newMomentButton} size={50} onPress={()=>{navigation.navigate("Compose")}}/>
-        </>
+            <IconButton icon="pencil" style={styles.newMomentButton} size={50} onPress={()=>{navigation.navigate("CompositionStack")}}/>
+        </View>
     )
 }
 
