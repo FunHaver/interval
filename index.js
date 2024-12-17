@@ -1,38 +1,30 @@
 /**
  * @format
  */
+import './gesture-handler';
 import * as React from 'react';
-import {AppRegistry, Platform} from 'react-native';
+import {AppRegistry} from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './src/Home';
 import initializeDatabase from './src/initializeDatabase';
 import {name as appName} from './app.json';
-import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import { PaperProvider, MD3LightTheme as DefaultTheme, Icon} from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MomentList from './src/MomentList';
+
 
 initializeDatabase().catch(e => {
     console.error(e);
 })
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function RootStack(){
     return(
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    headerStyle: {
-                        backgroundColor: "#ffffff"
-                    }
-                }}/>
-            <Stack.Screen
-                name="Moments"
-                component={MomentList}
-                />
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen  name="Home" 
+                            component={Home}
+                            options={{drawerIcon:()=> {return <Icon source="pencil"/>}}}/>
+        </Drawer.Navigator>
     )
 }
 

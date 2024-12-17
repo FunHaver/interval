@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Portal, Button, TextInput, PaperProvider, useTheme, Text } from 'react-native-paper';
+import {Modal, Portal, Button, TextInput, PaperProvider, useTheme, Text, IconButton } from 'react-native-paper';
 import {
   StyleSheet,
   View,
@@ -25,8 +25,12 @@ function Home(): React.JSX.Element {
       backgroundColor: theme.colors.background
     },
     newMomentButton: {
-      backgroundColor: theme.colors.primary,
-      color: theme.colors.onPrimary
+      borderWidth: 10,
+      borderColor: "#4E1ABD",
+      borderStyle: "solid",
+      height: 100,
+      width: 100,
+      borderRadius: 100
     },
     momentModal: {
       flex:1,
@@ -47,14 +51,13 @@ function Home(): React.JSX.Element {
       </Modal>
     </Portal>
       
-        <Button style={styles.newMomentButton} mode="contained" onPress={()=>showModal()}>
-          Hello
-        </Button>
+        <IconButton icon="pencil" style={styles.newMomentButton} size={50} onPress={()=>showModal()}>
+        </IconButton>
         {
         /*@ts-ignore navigation.navigate takes a string, it's in the docs: https://reactnative.dev/docs/navigation*/ }
-        <Button mode="contained" onPress={()=>navigation.navigate("Moments")}>
+        {/* <Button mode="contained" onPress={()=>navigation.navigate("Moments")}>
           View moments
-        </Button>
+        </Button> */}
 
       </View>
   );
