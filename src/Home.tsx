@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Portal, Button, TextInput, PaperProvider, useTheme, Text, IconButton } from 'react-native-paper';
+import {Modal, Portal, Button, TextInput, useTheme, Text, IconButton } from 'react-native-paper';
 import {
   StyleSheet,
   View,
