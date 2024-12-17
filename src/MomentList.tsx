@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import queryService from './queryService';
+import queryService from './database/queryService';
 
 function MomentList(): React.JSX.Element {
     const [data, updateData] = React.useState(Array<Moment>);

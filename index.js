@@ -8,7 +8,7 @@ import { PaperProvider, MD3LightTheme as DefaultTheme, Icon} from 'react-native-
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import initializeDatabase from './src/initializeDatabase';
+import initializeDatabase from './src/database/initializeDatabase';
 import {name as appName} from './app.json';
 
 import Home from './src/Home';

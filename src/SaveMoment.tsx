@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import queryService from './queryService';
+import queryService from './database/queryService';
 
 function SaveMoment():React.JSX.Element{
     async function saveNote(text:string){
