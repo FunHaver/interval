@@ -1,2 +1,14 @@
-Local DB 
-Browsing saved notes UI
+* Add remaining UI elements to composition form
+	* DB Querying Autocomplete
+* create read view
+	* list
+	* calendar
+	* chart
+	* individual
+* create settings view
+	* What settings?
+	* bury about here
+* create export view
+* connect database
+* pick logo
+* apply style
