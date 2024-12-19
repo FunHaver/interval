@@ -1,6 +1,6 @@
 type Moment = {
-    rowid: number;
+    rowId: number;
     note: string;
-    date: Date;
-    score?: number;
+    date: string;
+    score: number | null;
 }

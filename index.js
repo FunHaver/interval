@@ -4,7 +4,7 @@
 import './gesture-handler';
 import * as React from 'react';
 import {AppRegistry} from 'react-native';
-import { PaperProvider, MD3LightTheme as DefaultTheme, Icon} from 'react-native-paper';
+import { PaperProvider, MD3LightTheme as DefaultTheme, Icon, IconButton} from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -31,7 +31,10 @@ function RootStack(){
                             options={{drawerIcon:()=> {return <Icon source="pencil"/>}}}/>
             <Drawer.Screen  name="View Moments" 
                             component={ViewMoments}
-                            options={{drawerIcon:()=> {return <Icon source="book-open-variant"/>}}}/>
+                            options={{
+                                drawerIcon:()=> {return <Icon source="book-open-variant"/>},
+                                headerRight: () => {return <IconButton icon="filter-variant"/>}
+                            }}/>
             <Drawer.Screen  name="Settings" 
                             component={Settings}
                             options={{drawerIcon:()=> {return <Icon source="tune-variant"/>}}}/>

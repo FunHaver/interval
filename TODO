@@ -1,5 +1,3 @@
-* Add remaining UI elements to composition form
-	* DB Querying Autocomplete
 * create read view
 	* list
 	* calendar
@@ -10,5 +8,6 @@
 	* bury about here
 * create export view
 * connect database
+* Replace Tags TextInput with db querying autocomplete
 * pick logo
 * apply style

@@ -15,10 +15,9 @@ function NewButton():React.JSX.Element {
           borderRadius: 100
         },
         container: {
-            display: "flex",
+            flex: 1,
             justifyContent: 'center',
-            alignItems: 'center',
-            height: "100%"
+            alignItems: 'center'
         }
       })
     return(
