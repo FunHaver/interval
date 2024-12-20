@@ -18,15 +18,14 @@ function SaveMoment():React.JSX.Element{
         container: {
             flex: 1,
             justifyContent: 'center',
-            alignItems: 'center',
-            height: "100%"
+            alignItems: 'center'
         },
         slider: {
             height: 40,
             width: "75%"
         },
         tagInput: {
-            maxHeight: 50,
+            height: 50,
             width: "75%"
         }
     })
@@ -44,10 +43,10 @@ function SaveMoment():React.JSX.Element{
                 onSlidingComplete={(newVibe:number)=>{setVibeValue(newVibe)}}
             />
             <Text>Tags</Text>
-            <TextInput style={styles.tagInput} placeholder="Tags"/>
+            <TextInput textContentType='none' style={styles.tagInput} placeholder="Tags"/>
             {
             /*@ts-ignore*/}
-            <Button onPress={()=>navigation.reset({index:0, routes:[{name:"Home"},{name:"View Moments"},{name:"Settings"},{name:"Export Data"}]})}>Save</Button>
+            <Button onPress={()=>navigation.popToTop()}>Save</Button>
         </View>
     )
 }

@@ -4,44 +4,30 @@
 import './gesture-handler';
 import * as React from 'react';
 import {AppRegistry} from 'react-native';
-import { PaperProvider, MD3LightTheme as DefaultTheme, Icon, IconButton} from 'react-native-paper';
+import { PaperProvider, MD3LightTheme as DefaultTheme} from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import initializeDatabase from './src/database/initializeDatabase';
 import {name as appName} from './app.json';
-
-import Home from './src/Home';
-import ViewMoments from './src/ViewMoments';
-import Settings from './src/Settings';
-import ExportData from './src/ExportData';
-
+import DrawerStack from './src/DrawerStack';
+import ComposeMoment from './src/ComposeMoment';
+import SaveMoment from './src/SaveMoment';
 
 initializeDatabase().catch(e => {
     console.error(e);
 })
 
-const Drawer = createDrawerNavigator();
 
+
+const Stack = createNativeStackNavigator();
 function RootStack(){
     return(
-        <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen  name="Home" 
-                            component={Home}
-                            options={{drawerIcon:()=> {return <Icon source="pencil"/>}}}/>
-            <Drawer.Screen  name="View Moments" 
-                            component={ViewMoments}
-                            options={{
-                                drawerIcon:()=> {return <Icon source="book-open-variant"/>},
-                                headerRight: () => {return <IconButton icon="filter-variant"/>}
-                            }}/>
-            <Drawer.Screen  name="Settings" 
-                            component={Settings}
-                            options={{drawerIcon:()=> {return <Icon source="tune-variant"/>}}}/>
-            <Drawer.Screen  name="Export Data" 
-                            component={ExportData}
-                            options={{drawerIcon:()=> {return <Icon source="export"/>}}}/>
-        </Drawer.Navigator>
+    <Stack.Navigator initialRouteName='MainNav'>
+        <Stack.Screen options={{headerShown: false}} name="MainNav" component={DrawerStack} />
+        <Stack.Screen name="ComposeMoment" component={ComposeMoment}/>
+        <Stack.Screen name="SaveMoment" component={SaveMoment} />        
+      </Stack.Navigator>  
     )
 }
 

@@ -26,10 +26,10 @@ function ComposeMoment():React.JSX.Element{
                 <DateTimePicker mode={"single"} date={date} onChange={(params:any) => setDate(params.date.toDate())}/>
                 <Button onPress={()=>{setPickerVisibility(false)}}>Confirm</Button>
             </View>
-            <TextInput style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>
+            <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>
             {
             /*@ts-ignore*/}
-            <Button onPress={()=>navigation.navigate("Save")}>Save</Button>
+            <Button onPress={()=>navigation.navigate("SaveMoment")}>Save</Button>
         </View>
     )
 }

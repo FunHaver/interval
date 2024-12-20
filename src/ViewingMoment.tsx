@@ -8,7 +8,7 @@ function ViewingMoment({route}:{route:any}):React.JSX.Element{
             <Text>Viewing Moment</Text>
             <Text>{momentId}</Text>
         </View>
-    )
+    ) 
 }
 
 export default ViewingMoment;

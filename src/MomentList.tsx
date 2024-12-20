@@ -21,7 +21,7 @@ function MomentList(): React.JSX.Element {
                 data={data}
                 renderItem={({item}) => 
                     <>
-                        <Text>{item.rowid}</Text>
+                        <Text>{item.rowId}</Text>
                         <Text>{item.note}</Text>
                     </>
                 }/>
