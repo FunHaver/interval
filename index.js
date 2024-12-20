@@ -25,8 +25,8 @@ function RootStack(){
     return(
     <Stack.Navigator initialRouteName='MainNav'>
         <Stack.Screen options={{headerShown: false}} name="MainNav" component={DrawerStack} />
-        <Stack.Screen name="ComposeMoment" component={ComposeMoment}/>
-        <Stack.Screen name="SaveMoment" component={SaveMoment} />        
+        <Stack.Screen options={{keyboardHandlingEnabled:true}} name="ComposeMoment" component={ComposeMoment}/>
+        <Stack.Screen options={{keyboardHandlingEnabled:true}} name="SaveMoment" component={SaveMoment} />        
       </Stack.Navigator>  
     )
 }

@@ -16,9 +16,10 @@ function SaveMoment():React.JSX.Element{
     const [tags,setTags] = React.useState("");
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
+            display: "flex",
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            height: 300 //do not use percentages
         },
         slider: {
             height: 40,

@@ -13,8 +13,8 @@ function ComposeMoment():React.JSX.Element{
 
     const styles = StyleSheet.create({
         textField: {
-            minHeight: '80%',
-            maxHeight: '80%'
+            width: "100%",
+            height: 300 //do not use percentages
         }
     })
     return(
