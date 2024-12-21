@@ -14,7 +14,7 @@ function ComposeMoment():React.JSX.Element{
     const styles = StyleSheet.create({
         textField: {
             width: "100%",
-            height: 300 //do not use percentages
+            height: 300 //do not use percentages RN Paper: Currently we support only numbers in height prop [Component Stack]
         }
     })
     return(

@@ -13,6 +13,7 @@ import {name as appName} from './app.json';
 import DrawerStack from './src/DrawerStack';
 import ComposeMoment from './src/ComposeMoment';
 import SaveMoment from './src/SaveMoment';
+import ViewingMoment from './src/ViewingMoment';
 
 initializeDatabase().catch(e => {
     console.error(e);
@@ -27,6 +28,7 @@ function RootStack(){
         <Stack.Screen options={{headerShown: false}} name="MainNav" component={DrawerStack} />
         <Stack.Screen options={{keyboardHandlingEnabled:true}} name="ComposeMoment" component={ComposeMoment}/>
         <Stack.Screen options={{keyboardHandlingEnabled:true}} name="SaveMoment" component={SaveMoment} />        
+        <Stack.Screen name="Viewing Moment" component={ViewingMoment} />
       </Stack.Navigator>  
     )
 }
