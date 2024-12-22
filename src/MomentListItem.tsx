@@ -5,6 +5,10 @@ import { useNavigation } from "@react-navigation/native";
 const MomentContext = React.createContext("0");
 function MomentListItem({moment}:{moment:Moment}): React.JSX.Element {
     const navigation = useNavigation();
+    function viewMoment(){
+        //@ts-ignore
+        navigation.navigate("Viewing Moment",{momentId:moment.rowId})
+    }
     const styles = StyleSheet.create({
 
         card: {
@@ -19,9 +23,9 @@ function MomentListItem({moment}:{moment:Moment}): React.JSX.Element {
     return(
                 <Card.Title
                     title={cardTitle}
-                    subtitle={moment.date}
+                    subtitle={moment.date.toISOString()}
                     left={(props) => <Text>{moment.score}</Text>}
-                    right={(props)=><IconButton size={30} icon="chevron-right" onPress={()=>navigation.navigate("Viewing Moment",{momentId:moment.rowId})}/>}
+                    right={(props)=><IconButton size={30} icon="chevron-right" onPress={()=>viewMoment()}/>}
                     style={styles.card}/>
     )
 }

@@ -16,7 +16,13 @@ function ComposeMoment():React.JSX.Element{
             width: "100%",
             height: 300 //do not use percentages RN Paper: Currently we support only numbers in height prop [Component Stack]
         }
+
     })
+    function continueToSave(){
+        //@ts-ignore
+        navigation.navigate("SaveMoment", {text: text, date:date.toString()})
+
+    }
     return(
         <View>
             <Button onPress={()=>setPickerVisibility(true)}>
@@ -29,7 +35,7 @@ function ComposeMoment():React.JSX.Element{
             <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>
             {
             /*@ts-ignore*/}
-            <Button onPress={()=>navigation.navigate("SaveMoment")}>Save</Button>
+            <Button onPress={()=>continueToSave()}>Continue</Button>
         </View>
     )
 }

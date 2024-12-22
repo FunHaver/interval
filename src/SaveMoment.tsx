@@ -6,14 +6,24 @@ import Slider from '@react-native-community/slider';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
 
-function SaveMoment():React.JSX.Element{
-    async function saveNote(text:string){
-        await queryService.saveNewMoment(text);
+function SaveMoment({route}:{route:any}):React.JSX.Element{
+    async function saveNote(text:string, date: string){
+        await queryService.saveNewMoment({
+            rowId: null,
+            note: text,
+            date: new Date(date),
+            score: vibeValue
+        }).then(()=>{
+            //@ts-ignore popToTop is a valid method
+            navigation.popToTop();
+        }).catch(e => {console.error(e)})
+        
       }
         const navigation = useNavigation();
     
     const [vibeValue,setVibeValue] = React.useState(2);
     const [tags,setTags] = React.useState("");
+
     const styles = StyleSheet.create({
         container: {
             display: "flex",
@@ -47,7 +57,7 @@ function SaveMoment():React.JSX.Element{
             <TextInput textContentType='none' style={styles.tagInput} placeholder="Tags"/>
             {
             /*@ts-ignore*/}
-            <Button onPress={()=>navigation.popToTop()}>Save</Button>
+            <Button onPress={()=>saveNote(route.params.text, route.params.date)}>Save</Button>
         </View>
     )
 }

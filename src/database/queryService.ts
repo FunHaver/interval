@@ -4,13 +4,13 @@
 import databaseConnection from "./databaseConnection"
 
 const queryService = {
-    getAllMoments: async function(): Promise<Array<Moment>>{
-        let momentArray:Array<Moment> = [];
+    getAllMoments: async function(): Promise<Array<SavedMoment>>{
+        let momentArray:Array<SavedMoment> = [];
         let response = await databaseConnection.execute("SELECT * FROM moment");
         if(response.rows.length > 0){
             response.rows.forEach(row => {
                 momentArray.push({
-                    rowid:Number(row["ROWID"]),
+                    rowId:Number(row["ROWID"]),
                     note: String(row["note"]),
                     date: new Date(String(row["date"])),
                     score: Number(row["score"])
@@ -21,12 +21,13 @@ const queryService = {
         return momentArray;
     },
 
-    saveNewMoment: async function(note:string, score?:number):Promise<void>{
+    //TODO: Refactor to take NewMoment object
+    saveNewMoment: async function(moment:NewMoment):Promise<void>{
         const insertStatement = databaseConnection.prepareStatement('INSERT INTO moment (note, date, score) VALUES (?, ?, ?)');
-        if(score){
-            insertStatement.bind([note,new Date().toISOString(),score])
+        if(moment.score){
+            insertStatement.bind([moment.note,moment.date.toISOString(),moment.score])
         } else {
-            insertStatement.bind([note,new Date().toISOString(),null]);
+            insertStatement.bind([moment.note,moment.date.toISOString(),null]);
         }
         try{
             await insertStatement.execute();
