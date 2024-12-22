@@ -3,10 +3,14 @@
 	* calendar
 	* chart
 	* individual
+	  * Needs edit button
 * create settings view
 	* What settings?
 	* bury about here
 * create export view
+* create edit view
+* connect date widget output to new moment form
 * Replace Tags TextInput with db querying autocomplete
+* create sorting/filtering for viewing moments
 * pick logo
 * apply style

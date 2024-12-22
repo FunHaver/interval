@@ -12,7 +12,7 @@ const queryService = {
                 momentArray.push({
                     rowId:Number(row["ROWID"]),
                     note: String(row["note"]),
-                    date: new Date(String(row["date"])),
+                    date: String(row["date"]),
                     score: Number(row["score"])
                 })
             })
@@ -25,9 +25,9 @@ const queryService = {
     saveNewMoment: async function(moment:NewMoment):Promise<void>{
         const insertStatement = databaseConnection.prepareStatement('INSERT INTO moment (note, date, score) VALUES (?, ?, ?)');
         if(moment.score){
-            insertStatement.bind([moment.note,moment.date.toISOString(),moment.score])
+            insertStatement.bind([moment.note,moment.date,moment.score])
         } else {
-            insertStatement.bind([moment.note,moment.date.toISOString(),null]);
+            insertStatement.bind([moment.note,moment.date,null]);
         }
         try{
             await insertStatement.execute();

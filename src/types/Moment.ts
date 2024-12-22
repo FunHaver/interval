@@ -1,7 +1,7 @@
 interface Moment {
     rowId: number | null;
     note: string;
-    date: Date;
+    date: string;
     score: number | null;
 }
 

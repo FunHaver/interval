@@ -11,7 +11,7 @@ function SaveMoment({route}:{route:any}):React.JSX.Element{
         await queryService.saveNewMoment({
             rowId: null,
             note: text,
-            date: new Date(date),
+            date: new Date(date).toISOString(),
             score: vibeValue
         }).then(()=>{
             //@ts-ignore popToTop is a valid method

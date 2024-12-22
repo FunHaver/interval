@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Text,Card, Icon, IconButton } from "react-native-paper";
+import { Text,Card, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-const MomentContext = React.createContext("0");
-function MomentListItem({moment}:{moment:Moment}): React.JSX.Element {
+
+function MomentListItem({moment}:{moment:SavedMoment}): React.JSX.Element {
     const navigation = useNavigation();
     function viewMoment(){
+
         //@ts-ignore
-        navigation.navigate("Viewing Moment",{momentId:moment.rowId})
+        navigation.navigate("Viewing Moment",{moment:moment})
     }
     const styles = StyleSheet.create({
 
@@ -23,7 +24,7 @@ function MomentListItem({moment}:{moment:Moment}): React.JSX.Element {
     return(
                 <Card.Title
                     title={cardTitle}
-                    subtitle={moment.date.toISOString()}
+                    subtitle={moment.date}
                     left={(props) => <Text>{moment.score}</Text>}
                     right={(props)=><IconButton size={30} icon="chevron-right" onPress={()=>viewMoment()}/>}
                     style={styles.card}/>
