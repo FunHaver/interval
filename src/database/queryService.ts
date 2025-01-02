@@ -2,6 +2,7 @@
 //munge any returning data into compatable types for the UI
 
 import databaseConnection from "./databaseConnection"
+import dayjs from 'dayjs'
 
 const queryService = {
     getAllMoments: async function(): Promise<Array<SavedMoment>>{
@@ -31,6 +32,45 @@ const queryService = {
         }
         try{
             await insertStatement.execute();
+        } catch(e){
+            console.error(e)
+        }
+    },
+
+    /**
+     * Inserts new entry in moment table with now as current date, returns rowId
+     */
+    createMoment: async function():Promise<number|void>{
+        const insertStatement = databaseConnection.prepareStatement('INSERT INTO moment (date) VALUES (?)');
+        const defaultDate = dayjs().toISOString();
+        insertStatement.bind([defaultDate]);
+    
+        try{
+            let result = await insertStatement.execute()
+            
+            if(typeof result.insertId !== "number"){
+                throw new Error("New moment rowId not found")
+            } else {
+                return result.insertId
+            }
+            
+        } catch(e){
+            console.error(e);
+        }
+        
+
+        
+    },
+    /**
+     * Deletes moment, requires rowId
+     */
+    deleteMoment: async function(rowId: number):Promise<void>{
+        console.log("deleting")
+        const deleteStatement = databaseConnection.prepareStatement('DELETE FROM moment where ROWID = ?');
+        deleteStatement.bind([rowId.toString()]);
+        try {
+            const result = await deleteStatement.execute();
+            console.log(result)
         } catch(e){
             console.error(e)
         }

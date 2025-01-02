@@ -3,9 +3,9 @@
  */
 import './gesture-handler';
 import * as React from 'react';
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Button} from 'react-native';
 import { PaperProvider, MD3LightTheme as DefaultTheme} from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import initializeDatabase from './src/database/initializeDatabase';
@@ -14,7 +14,9 @@ import DrawerStack from './src/DrawerStack';
 import ComposeMoment from './src/ComposeMoment';
 import SaveMoment from './src/SaveMoment';
 import ViewingMoment from './src/ViewingMoment';
-
+import ComposeBackButton from './src/ComposeBackButton';
+import { CurrentMomentContext, CurrentMomentDispatchContext, CurrentMomentProvider } from './src/CurrentMomentContext';
+import currentMomentReducer from './src/currentMomentReducer';
 initializeDatabase().catch(e => {
     console.error(e);
 })
@@ -23,10 +25,15 @@ initializeDatabase().catch(e => {
 
 const Stack = createNativeStackNavigator();
 function RootStack(){
+    
     return(
     <Stack.Navigator initialRouteName='MainNav'>
         <Stack.Screen options={{headerShown: false}} name="MainNav" component={DrawerStack} />
-        <Stack.Screen options={{keyboardHandlingEnabled:true}} name="ComposeMoment" component={ComposeMoment}/>
+        <Stack.Screen options={{keyboardHandlingEnabled:true, 
+                                headerBackVisible: false, 
+                                headerLeft:()=>{
+                                    return <ComposeBackButton/>
+                                }}} name="ComposeMoment" component={ComposeMoment}/>
         <Stack.Screen options={{keyboardHandlingEnabled:true}} name="SaveMoment" component={SaveMoment} />        
         <Stack.Screen name="Viewing Moment" component={ViewingMoment} />
       </Stack.Navigator>  
@@ -34,11 +41,21 @@ function RootStack(){
 }
 
 export default function Main(){
+    let defaultMoment = {
+        rowId: -1,
+        note: '',
+        date: '',
+        score: null
+    }
+    const [currentMoment, dispatch] = React.useReducer(currentMomentReducer,currentMoment)
+    
     return (
         <PaperProvider theme={DefaultTheme}>
-            <NavigationContainer>
-                <RootStack />
-            </NavigationContainer>
+            <CurrentMomentProvider>
+                <NavigationContainer>
+                    <RootStack />
+                </NavigationContainer>
+            </CurrentMomentProvider>
         </PaperProvider>
     )
 }
