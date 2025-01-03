@@ -65,14 +65,46 @@ const queryService = {
      * Deletes moment, requires rowId
      */
     deleteMoment: async function(rowId: number):Promise<void>{
-        console.log("deleting")
         const deleteStatement = databaseConnection.prepareStatement('DELETE FROM moment where ROWID = ?');
         deleteStatement.bind([rowId.toString()]);
         try {
             const result = await deleteStatement.execute();
-            console.log(result)
+            return;
         } catch(e){
             console.error(e)
+        }
+    },
+
+    updateMoment: async function(rowId:number, updatedProps:UpdatableMomentRows):Promise<SavedMoment|void>{
+        let propArray = [];
+        //build statement
+        let templateStatement = "UPDATE moments";
+        for(let key in updatedProps){
+            propArray.push(updatedProps[key]);
+            templateStatement += ` ${key} = ?,`
+
+        }
+        templateStatement = templateStatement.slice(0,-1);
+        templateStatement += " WHERE ROWID = ?";
+        const updateStatement = databaseConnection.prepareStatement(templateStatement);
+        updateStatement.bind([...propArray, rowId.toString()])
+        try {
+            const result = await updateStatement.execute();
+            return result;
+        } catch(e){
+            console.error(e);
+        }
+    },
+
+    readMoment: async function(rowId:number):Promise<SavedMoment|void>{
+        const readStatement = databaseConnection.prepareStatement("SELECT * from moment where ROWID = ?");
+        readStatement.bind([rowId.toString()]);
+        try {
+            const result = readStatement.execute();
+            return result;
+        } catch(e){
+            console.error(e);
+            throw new Error("ERROR: could not read moment from database.");
         }
     }
 }

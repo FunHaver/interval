@@ -5,22 +5,13 @@ import queryService from './database/queryService';
 import Slider from '@react-native-community/slider';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
+import { useCurrentMoment, useCurrentMomentDispatch } from './CurrentMomentContext';
 
 function SaveMoment({route}:{route:any}):React.JSX.Element{
-    async function saveNote(text:string, date: string){
-        await queryService.saveNewMoment({
-            rowId: null,
-            note: text,
-            date: new Date(date).toISOString(),
-            score: vibeValue
-        }).then(()=>{
-            //@ts-ignore popToTop is a valid method
-            navigation.popToTop();
-        }).catch(e => {console.error(e)})
-        
-      }
-        const navigation = useNavigation();
-    
+
+    const navigation = useNavigation();
+    const currentMoment = useCurrentMoment()
+    const dispatch = useCurrentMomentDispatch();
     const [vibeValue,setVibeValue] = React.useState(2);
     const [tags,setTags] = React.useState("");
 
@@ -40,6 +31,18 @@ function SaveMoment({route}:{route:any}):React.JSX.Element{
             width: "75%"
         }
     })
+    async function saveNote(){
+        //first save to context
+        dispatch({
+            type: "modify",
+            score: vibeValue
+        })
+        //then save to db
+        //@ts-ignore popToTop is a valid method
+        navigation.popToTop();
+    
+    
+  }
     return(
         <View style={styles.container}>
             <Text>Vibe</Text>
@@ -57,7 +60,7 @@ function SaveMoment({route}:{route:any}):React.JSX.Element{
             <TextInput textContentType='none' style={styles.tagInput} placeholder="Tags"/>
             {
             /*@ts-ignore*/}
-            <Button onPress={()=>saveNote(route.params.text, route.params.date)}>Save</Button>
+            <Button onPress={()=>saveNote()}>Save</Button>
         </View>
     )
 }

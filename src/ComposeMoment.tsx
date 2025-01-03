@@ -4,10 +4,13 @@ import { StyleSheet, View } from 'react-native';
 import DateTimePicker from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import { useNavigation } from '@react-navigation/native';
+import { useCurrentMoment, useCurrentMomentDispatch } from './CurrentMomentContext';
 
 function ComposeMoment():React.JSX.Element{
-    const [text, setText] = React.useState("");
-    const [date, setDate] = React.useState(dayjs().toDate());
+    const currentMoment = useCurrentMoment();
+    const dispatch = useCurrentMomentDispatch();
+    const [text, setText] = React.useState(currentMoment.note);
+    const [date, setDate] = React.useState(dayjs(currentMoment.date));
     const [showPicker, setPickerVisibility] = React.useState(false);
     const navigation = useNavigation();
 
@@ -19,17 +22,23 @@ function ComposeMoment():React.JSX.Element{
 
     })
     function continueToSave(){
+        dispatch({
+            type: "modify",
+            note: text,
+            date: date
+        })
         //@ts-ignore
-        navigation.navigate("SaveMoment", {text: text, date:date.toString()})
+        navigation.navigate("SaveMoment");
 
     }
+
     return(
         <View>
             <Button onPress={()=>setPickerVisibility(true)}>
-                <Text>{date.toDateString()}</Text>
+                <Text>{date.toString()}</Text>
             </Button>
             <View style={{display:showPicker ? 'flex':'none'}}>
-                <DateTimePicker mode={"single"} date={date} onChange={(params:any) => setDate(params.date.toDate())}/>
+                <DateTimePicker mode={"single"} date={date} onChange={(params:any) => setDate(params.date.toISOString())}/>
                 <Button onPress={()=>{setPickerVisibility(false)}}>Confirm</Button>
             </View>
             <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>

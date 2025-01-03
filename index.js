@@ -15,8 +15,7 @@ import ComposeMoment from './src/ComposeMoment';
 import SaveMoment from './src/SaveMoment';
 import ViewingMoment from './src/ViewingMoment';
 import ComposeBackButton from './src/ComposeBackButton';
-import { CurrentMomentContext, CurrentMomentDispatchContext, CurrentMomentProvider } from './src/CurrentMomentContext';
-import currentMomentReducer from './src/currentMomentReducer';
+import { CurrentMomentProvider } from './src/CurrentMomentContext';
 initializeDatabase().catch(e => {
     console.error(e);
 })
@@ -41,13 +40,6 @@ function RootStack(){
 }
 
 export default function Main(){
-    let defaultMoment = {
-        rowId: -1,
-        note: '',
-        date: '',
-        score: null
-    }
-    const [currentMoment, dispatch] = React.useReducer(currentMomentReducer,currentMoment)
     
     return (
         <PaperProvider theme={DefaultTheme}>

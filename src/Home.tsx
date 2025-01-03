@@ -2,10 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { IconButton } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
+import { useCurrentMomentDispatch } from './CurrentMomentContext';
 import queryService from './database/queryService';
-
 function Home():React.JSX.Element {
   const navigation = useNavigation();
+  const dispatch = useCurrentMomentDispatch();
   const styles = StyleSheet.create({
       newMomentButton: {
         borderWidth: 10,
@@ -22,14 +23,11 @@ function Home():React.JSX.Element {
       }
     })
     async function newMoment(){
-      await queryService.createMoment().then(rowId => {
-        //@ts-ignore
-        navigation.navigate("ComposeMoment",{rowId:rowId})
-      }).catch(e => {
-        console.error(e);
-        //@ts-ignore popToTop is a valid method
-        navigation.popToTop();
-      })
+        const newMomentRowId = await queryService.createMoment();
+        dispatch({type:"create", rowId: newMomentRowId})
+        //@ts-ignore valid method signature
+        navigation.navigate("ComposeMoment");
+      
     }
   return(
       <View style={styles.container}>
