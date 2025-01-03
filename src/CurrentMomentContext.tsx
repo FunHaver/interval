@@ -58,15 +58,6 @@ function currentMomentReducer(moment:Moment,action:any){
                 date: '',
                 score: null
             }
-    
-            // if(typeof moment.rowId == "number"){
-            //     //await queryService.deleteMoment(moment.rowId);
-            //     console.log(moment)
-            // } else {
-            //     throw Error(`Invalid rowId for moment: ${moment.rowId}`);
-            // }
-            //reset moment to -1 and blank everything
-            
         }
         case 'modify': {
             console.log("modify action")
