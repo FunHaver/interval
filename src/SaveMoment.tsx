@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
 import { useCurrentMoment, useCurrentMomentDispatch } from './CurrentMomentContext';
 
-function SaveMoment({route}:{route:any}):React.JSX.Element{
+function SaveMoment():React.JSX.Element{
 
     const navigation = useNavigation();
     const currentMoment = useCurrentMoment()
@@ -38,6 +38,7 @@ function SaveMoment({route}:{route:any}):React.JSX.Element{
             score: vibeValue
         })
         //then save to db
+        console.log(currentMoment)
         //@ts-ignore popToTop is a valid method
         navigation.popToTop();
     

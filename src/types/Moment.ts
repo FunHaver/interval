@@ -3,6 +3,7 @@ interface Moment {
     note: string;
     date: string;
     score: number | null;
+    [key:string]: any;
 }
 
 interface NewMoment extends Moment {

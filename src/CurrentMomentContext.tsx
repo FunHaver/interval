@@ -39,9 +39,6 @@ export function useCurrentMomentDispatch():Function{
 function currentMomentReducer(moment:Moment,action:any){
     switch(action.type) {
         case 'create': {
-            console.log("create action");
-            //persist in momentCtx
-
             return {
                 rowId: action.rowId, //TODO: db generated rowid
                 note: '',
@@ -50,7 +47,6 @@ function currentMomentReducer(moment:Moment,action:any){
             };
         }
         case 'delete': {
-            console.log("delete action");
             //remove from db
             return {
                 rowId: null,
@@ -60,15 +56,12 @@ function currentMomentReducer(moment:Moment,action:any){
             }
         }
         case 'modify': {
-            console.log("modify action")
- 
-            let updatedMoment:any = {};
             for(let key in moment){
                 if(action[key] !== undefined){
-                    updatedMoment[key] = action[key]
-                }
+                    moment[key] = action[key]
+                } 
             }
-            return updatedMoment;
+            return moment;
         }
         default: {
             throw Error("Unknown action: " + action.type);

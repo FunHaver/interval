@@ -10,7 +10,7 @@ function ComposeMoment():React.JSX.Element{
     const currentMoment = useCurrentMoment();
     const dispatch = useCurrentMomentDispatch();
     const [text, setText] = React.useState(currentMoment.note);
-    const [date, setDate] = React.useState(dayjs(currentMoment.date));
+    const [date, setDate] = React.useState(currentMoment.date);
     const [showPicker, setPickerVisibility] = React.useState(false);
     const navigation = useNavigation();
 
@@ -35,10 +35,10 @@ function ComposeMoment():React.JSX.Element{
     return(
         <View>
             <Button onPress={()=>setPickerVisibility(true)}>
-                <Text>{date.toString()}</Text>
+                <Text>{date}</Text>
             </Button>
             <View style={{display:showPicker ? 'flex':'none'}}>
-                <DateTimePicker mode={"single"} date={date} onChange={(params:any) => setDate(params.date.toISOString())}/>
+                <DateTimePicker mode={"single"} date={dayjs(date)} onChange={(params:any) => setDate(params.date.toISOString())}/>
                 <Button onPress={()=>{setPickerVisibility(false)}}>Confirm</Button>
             </View>
             <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>

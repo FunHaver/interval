@@ -42,13 +42,13 @@ function RootStack(){
 export default function Main(){
     
     return (
-        <PaperProvider theme={DefaultTheme}>
-            <CurrentMomentProvider>
+        <CurrentMomentProvider>
+            <PaperProvider theme={DefaultTheme}>
                 <NavigationContainer>
                     <RootStack />
                 </NavigationContainer>
-            </CurrentMomentProvider>
-        </PaperProvider>
+            </PaperProvider>
+        </CurrentMomentProvider>
     )
 }
 AppRegistry.registerComponent(appName, () => Main);
