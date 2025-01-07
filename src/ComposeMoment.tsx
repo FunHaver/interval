@@ -5,6 +5,7 @@ import DateTimePicker from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import { useNavigation } from '@react-navigation/native';
 import { useCurrentMoment, useCurrentMomentDispatch } from './CurrentMomentContext';
+import queryService from './database/queryService';
 
 function ComposeMoment():React.JSX.Element{
     const currentMoment = useCurrentMoment();
@@ -14,6 +15,7 @@ function ComposeMoment():React.JSX.Element{
     const [showPicker, setPickerVisibility] = React.useState(false);
     const navigation = useNavigation();
 
+
     const styles = StyleSheet.create({
         textField: {
             width: "100%",
@@ -21,14 +23,22 @@ function ComposeMoment():React.JSX.Element{
         }
 
     })
-    function continueToSave(){
+    async function continueToSave(){
         dispatch({
             type: "modify",
             note: text,
             date: date
         })
-        //@ts-ignore
-        navigation.navigate("SaveMoment");
+        if(typeof currentMoment.rowId === "number"){
+            await queryService.updateMoment(currentMoment.rowId,{note: text,date:date}).then(()=>{
+                //@ts-ignore
+                navigation.navigate("SaveMoment");
+            }).catch(e => {
+                console.log("Error updating db");
+                console.error(e);
+            })
+        }
+
 
     }
 
@@ -41,7 +51,7 @@ function ComposeMoment():React.JSX.Element{
                 <DateTimePicker mode={"single"} date={dayjs(date)} onChange={(params:any) => setDate(params.date.toISOString())}/>
                 <Button onPress={()=>{setPickerVisibility(false)}}>Confirm</Button>
             </View>
-            <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={setText} value={text} multiline/>
+            <TextInput textContentType='none' style={styles.textField} placeholder="My Moment" onChangeText={text=>setText(text)} value={text} multiline/>
             {
             /*@ts-ignore*/}
             <Button onPress={()=>continueToSave()}>Continue</Button>

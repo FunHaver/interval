@@ -38,9 +38,16 @@ function SaveMoment():React.JSX.Element{
             score: vibeValue
         })
         //then save to db
-        console.log(currentMoment)
-        //@ts-ignore popToTop is a valid method
-        navigation.popToTop();
+        if(typeof currentMoment.rowId === "number"){
+            await queryService.updateMoment(currentMoment.rowId,{score: currentMoment.score}).then(()=>{
+                //@ts-ignore popToTop is a valid method
+                navigation.popToTop()
+            }).catch(e => {
+                console.log("Error updating db");
+                console.error(e);
+            })
+        }
+
     
     
   }

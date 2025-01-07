@@ -78,7 +78,7 @@ const queryService = {
     updateMoment: async function(rowId:number, updatedProps:UpdatableMomentRows):Promise<SavedMoment|void>{
         let propArray = [];
         //build statement
-        let templateStatement = "UPDATE moments";
+        let templateStatement = "UPDATE moment SET";
         for(let key in updatedProps){
             propArray.push(updatedProps[key]);
             templateStatement += ` ${key} = ?,`
@@ -86,10 +86,11 @@ const queryService = {
         }
         templateStatement = templateStatement.slice(0,-1);
         templateStatement += " WHERE ROWID = ?";
-        const updateStatement = databaseConnection.prepareStatement(templateStatement);
-        updateStatement.bind([...propArray, rowId.toString()])
+        
         try {
-            const result = await updateStatement.execute();
+            const updateStatement = databaseConnection.prepareStatement(templateStatement);
+            updateStatement.bind([...propArray, rowId.toString()])
+            const result = await updateStatement.execute(); //TODO coerce into moment obj
             return result;
         } catch(e){
             console.error(e);
@@ -100,7 +101,7 @@ const queryService = {
         const readStatement = databaseConnection.prepareStatement("SELECT * from moment where ROWID = ?");
         readStatement.bind([rowId.toString()]);
         try {
-            const result = readStatement.execute();
+            const result = readStatement.execute(); //Todo coerce into moment obj
             return result;
         } catch(e){
             console.error(e);
