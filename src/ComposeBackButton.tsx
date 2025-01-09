@@ -11,7 +11,6 @@ function ComposeBackButton():React.JSX.Element {
             if(typeof momentContext.rowId === "number"){
                 await queryService.deleteMoment(momentContext.rowId)
                 //dispatch delete current moment
-                dispatch({type: "delete"});
                 navigation.goBack();
             } else {
                 throw new Error("Current moment context does not have ROWID");

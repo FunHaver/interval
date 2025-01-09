@@ -56,7 +56,6 @@ function currentMomentReducer(moment:Moment,action:any){
             }
         }
         case 'modify': {
-            debugger;
             for(let key in moment){
                 if(action[key] !== undefined){
                     moment[key] = action[key]

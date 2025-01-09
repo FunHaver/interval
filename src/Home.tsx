@@ -23,7 +23,7 @@ function Home():React.JSX.Element {
       }
     })
     async function newMoment(){
-        dispatch({type:"create"})
+        dispatch({type:"create"});
         //@ts-ignore valid method signature
         navigation.navigate("ComposeMoment");
       

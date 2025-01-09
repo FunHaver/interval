@@ -48,7 +48,6 @@ function SaveMoment():React.JSX.Element{
             })
         } else if(currentMoment.rowId === null){
             let rowId = await queryService.createMoment();
-            debugger;
             await queryService.updateMoment(rowId, {...currentMoment}).then(()=>{
                 //@ts-ignore popToTop is a valid method
                 navigation.popToTop()

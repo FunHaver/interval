@@ -78,6 +78,7 @@ const queryService = {
     updateMoment: async function(rowId:number, updatedProps:UpdatableMomentRows):Promise<SavedMoment|void>{
         let propArray = [];
         //build statement
+        delete updatedProps.rowId;
         let templateStatement = "UPDATE moment SET";
         for(let key in updatedProps){
             propArray.push(updatedProps[key]);
@@ -86,7 +87,6 @@ const queryService = {
         }
         templateStatement = templateStatement.slice(0,-1);
         templateStatement += " WHERE ROWID = ?";
-        debugger;
         try {
             const updateStatement = databaseConnection.prepareStatement(templateStatement);
             updateStatement.bind([...propArray, rowId.toString()])
