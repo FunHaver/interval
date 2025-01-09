@@ -2,13 +2,17 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Text,Card, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-
+import { useCurrentMomentDispatch } from "./CurrentMomentContext";
 function MomentListItem({moment}:{moment:SavedMoment}): React.JSX.Element {
     const navigation = useNavigation();
+    const dispatch = useCurrentMomentDispatch();
     function viewMoment(){
-
+        dispatch({
+            ...moment,
+            "type":"modify"
+        })
         //@ts-ignore
-        navigation.navigate("Viewing Moment",{moment:moment})
+        navigation.navigate("Viewing Moment")
     }
     const styles = StyleSheet.create({
 

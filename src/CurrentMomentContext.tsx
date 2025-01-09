@@ -40,7 +40,7 @@ function currentMomentReducer(moment:Moment,action:any){
     switch(action.type) {
         case 'create': {
             return {
-                rowId: action.rowId, //TODO: db generated rowid
+                rowId: null,
                 note: '',
                 date: dayjs().toISOString(),
                 score: null
@@ -56,6 +56,7 @@ function currentMomentReducer(moment:Moment,action:any){
             }
         }
         case 'modify': {
+            debugger;
             for(let key in moment){
                 if(action[key] !== undefined){
                     moment[key] = action[key]

@@ -40,12 +40,11 @@ const queryService = {
     /**
      * Inserts new entry in moment table with now as current date, returns rowId
      */
-    createMoment: async function():Promise<number|void>{
-        const insertStatement = databaseConnection.prepareStatement('INSERT INTO moment (date) VALUES (?)');
-        const defaultDate = dayjs().toISOString();
-        insertStatement.bind([defaultDate]);
-    
+    createMoment: async function():Promise<number>{
         try{
+            const insertStatement = databaseConnection.prepareStatement('INSERT INTO moment (date) VALUES (?)');
+            const defaultDate = dayjs().toISOString();
+            insertStatement.bind([defaultDate]);
             let result = await insertStatement.execute()
             
             if(typeof result.insertId !== "number"){
@@ -56,6 +55,7 @@ const queryService = {
             
         } catch(e){
             console.error(e);
+            return -1; //-1 means error
         }
         
 
@@ -86,7 +86,7 @@ const queryService = {
         }
         templateStatement = templateStatement.slice(0,-1);
         templateStatement += " WHERE ROWID = ?";
-        
+        debugger;
         try {
             const updateStatement = databaseConnection.prepareStatement(templateStatement);
             updateStatement.bind([...propArray, rowId.toString()])

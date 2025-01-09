@@ -15,7 +15,6 @@ function ComposeMoment():React.JSX.Element{
     const [showPicker, setPickerVisibility] = React.useState(false);
     const navigation = useNavigation();
 
-
     const styles = StyleSheet.create({
         textField: {
             width: "100%",
@@ -29,17 +28,8 @@ function ComposeMoment():React.JSX.Element{
             note: text,
             date: date
         })
-        if(typeof currentMoment.rowId === "number"){
-            await queryService.updateMoment(currentMoment.rowId,{note: text,date:date}).then(()=>{
-                //@ts-ignore
-                navigation.navigate("SaveMoment");
-            }).catch(e => {
-                console.log("Error updating db");
-                console.error(e);
-            })
-        }
-
-
+        //@ts-ignore
+        navigation.navigate("SaveMoment");
     }
 
     return(

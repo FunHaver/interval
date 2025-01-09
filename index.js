@@ -24,7 +24,12 @@ initializeDatabase().catch(e => {
 
 const Stack = createNativeStackNavigator();
 function RootStack(){
-    
+    const navigator = useNavigation();
+
+    function editMoment(){
+
+        navigator.navigate("ComposeMoment")
+    }
     return(
     <Stack.Navigator initialRouteName='MainNav'>
         <Stack.Screen options={{headerShown: false}} name="MainNav" component={DrawerStack} />
@@ -34,7 +39,13 @@ function RootStack(){
                                     return <ComposeBackButton/>
                                 }}} name="ComposeMoment" component={ComposeMoment}/>
         <Stack.Screen options={{keyboardHandlingEnabled:true}} name="SaveMoment" component={SaveMoment} />        
-        <Stack.Screen name="Viewing Moment" component={ViewingMoment} />
+        <Stack.Screen name="Viewing Moment" 
+                      component={ViewingMoment}
+                      options={{
+                        headerRight:()=>{
+                            return <Button onPress={()=>editMoment()} title='Edit'/>
+                        }
+                      }}/>
       </Stack.Navigator>  
     )
 }

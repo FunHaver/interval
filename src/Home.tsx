@@ -23,8 +23,7 @@ function Home():React.JSX.Element {
       }
     })
     async function newMoment(){
-        const newMomentRowId = await queryService.createMoment();
-        dispatch({type:"create", rowId: newMomentRowId}) // TODO get moment id from db
+        dispatch({type:"create"})
         //@ts-ignore valid method signature
         navigation.navigate("ComposeMoment");
       
