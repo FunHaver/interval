@@ -38,27 +38,20 @@ function SaveMoment():React.JSX.Element{
             score: vibeValue
         })
         //then update for save to db
-        if(typeof currentMoment.rowId === "number"){
-            await queryService.updateMoment(currentMoment.rowId,{score: currentMoment.score}).then(()=>{
-                //@ts-ignore popToTop is a valid method
-                navigation.popToTop()
-            }).catch(e => {
-                console.log("Error updating db");
-                console.error(e);
-            })
-        } else if(currentMoment.rowId === null){
-            let rowId = await queryService.createMoment();
-            await queryService.updateMoment(rowId, {...currentMoment}).then(()=>{
-                //@ts-ignore popToTop is a valid method
-                navigation.popToTop()
-            })
-            
+        let rowId:number = -1;
+        if(currentMoment.rowId === null){
+            rowId = await queryService.createMoment();
         } else {
-            throw new Error("Error saving moment to database. Invalid rowId type: " + typeof currentMoment.rowId);
+            rowId = currentMoment.rowId;
         }
-
-    
-    
+   
+        await queryService.updateMoment(rowId, {...currentMoment}).then(()=>{
+            //@ts-ignore popToTop is a valid method
+            navigation.popToTop()
+        }).catch((e)=>{
+            console.error(e);
+            throw new Error("Error saving moment to database.");
+        })
   }
     return(
         <View style={styles.container}>

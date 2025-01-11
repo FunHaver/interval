@@ -85,6 +85,7 @@ const queryService = {
             templateStatement += ` ${key} = ?,`
 
         }
+        debugger;
         templateStatement = templateStatement.slice(0,-1);
         templateStatement += " WHERE ROWID = ?";
         try {

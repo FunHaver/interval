@@ -1,9 +1,8 @@
+* fix list not refreshing after edit bug
 * create read view
-	* list
 	* calendar
 	* chart
-	* individual
-	  * Needs edit button
+
 * create settings view
 	* What settings?
 	* bury about here
